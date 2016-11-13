@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.orm.SugarContext;
+
 public class MainActivity extends AppCompatActivity {
 TextView nilai;
     int nilaiAnda = 0;
@@ -28,12 +30,14 @@ TextView nilai;
         }
         int hasilpref = PrefHelper.getNilaiHasil(getApplicationContext());
         nilai.setText(String.valueOf(hasilpref));
+        SugarContext.init(this);
     }
 
     public void plus1(View bv){
         pref=PrefHelper.getNilaiHasil(getApplicationContext());
         nilaiAnda = pref +1;
         hasil1 = hasil1+1;
+
         PrefHelper.saveNilaiHasil(getApplicationContext(),nilaiAnda);
       //  nilai.setText("Tambah satu");
         nilai.setText(String.valueOf(nilaiAnda));
@@ -72,11 +76,25 @@ TextView nilai;
         hasilAnda.setText("");
     }
     public void total(View v){
+        NilaiSemuaModel nilaiSemuaModel = new NilaiSemuaModel();
+        nilaiSemuaModel.setHasil1(""+hasil1);
+        nilaiSemuaModel.setHasil2(""+hasil2);
+        nilaiSemuaModel.setHasil3(""+hasil3);
+        nilaiSemuaModel.setHasil(""+nilaiAnda);
+        nilaiSemuaModel.save();
+        Log.e("tesDB", "total: "+
+                NilaiSemuaModel.find(
+                        NilaiSemuaModel.class,
+                        null, null, null, "id DESC",
+                        null).size());
+        Log.e("tesDB", "total: ");
+
         Intent intent = new Intent(MainActivity.this, BaruActivity.class);
         intent.putExtra("hasil1",""+hasil1);
         intent.putExtra("hasil2",""+hasil2);
         intent.putExtra("hasil3",""+hasil3);
         intent.putExtra("hasil",""+nilaiAnda);
         startActivity(intent);
+
     }
 }
