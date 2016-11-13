@@ -46,10 +46,20 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/nilaianda"
-        android:text="nilai anda adala"
+
+    <Button
+        android:text="Total"
+        android:onClick="total"
+        android:id="@+id/total"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+    android:id="@+id/nilaianda"
+    android:text="nilai anda adala"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
 </LinearLayout>
